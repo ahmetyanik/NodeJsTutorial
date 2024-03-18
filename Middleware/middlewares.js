@@ -1,3 +1,5 @@
+import { allUsers } from "./client.js";
+
 const passwordControl = (req,res,next)=>{
 
     const erisimYetkisi = true;
@@ -14,7 +16,7 @@ const passwordControl = (req,res,next)=>{
 }
 
 
-const authControl = (req,res,next)=>{
+/* const authControl = (req,res,next)=>{
 
     const erisimYetkisi = true;
 
@@ -26,16 +28,30 @@ const authControl = (req,res,next)=>{
     }else{
         next();
     }
-}
+} */
+
+
 
 
 const postIcinControl = (req,res,next)=>{
 
-    if(req.body.ad === "ahmet" && req.body.sifre == 123){
-        res.status(200).json({
-            status:true,
-            message:"Erisim sagladiniz"
-        })       
+/*     console.log(req.body.ad);
+    console.log(req.body.password);
+
+    console.log(req.body);
+
+   console.log(allUsers) */
+
+   
+   const foundedUser = allUsers.find(user=>{
+    
+   return user.ad == req.body.ad && user.password == req.body.password
+   })
+
+   console.log(foundedUser);
+
+
+    if(foundedUser){            
 
         next();
         
@@ -46,5 +62,35 @@ const postIcinControl = (req,res,next)=>{
         })
     }
 }
+
+const authControl = (req,res,next)=>{
+
+    /*     console.log(req.body.ad);
+        console.log(req.body.password);
+    
+        console.log(req.body);
+    
+       console.log(allUsers) */
+    
+       
+       const foundedUser = allUsers.find(user=>{
+        
+       return user.ad == req.body.ad && user.password == req.body.password && user.role == "admin"
+       })
+    
+       console.log(foundedUser);
+    
+    
+        if(foundedUser){            
+    
+            next();
+            
+        }else{
+            res.status(401).json({
+                status:false,
+                message:"Yetkiniz yok!"
+            })
+        }
+    }
 
 export { passwordControl,authControl,postIcinControl};

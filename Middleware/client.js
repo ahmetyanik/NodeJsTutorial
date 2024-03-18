@@ -12,12 +12,10 @@ app.use(
     })
   );
 
-const users = [
-    {id:1,ad:"ahmet",yas:35},
-    {id:2,ad:"mehmet",yas:33},
-    {id:3,ad:"ali",yas:31},
-    {id:4,ad:"veli",yas:39},
-    {id:5,ad:"zeynep",yas:7}
+export const allUsers = [
+    {id:1,ad:"ahmet",yas:35,password:123,role:"admin"},
+    {id:2,ad:"mehmet",yas:35,password:124,role:"user"}
+
 ]
 
 
@@ -25,14 +23,9 @@ app.get("/", (req,res)=>{
     res.send("<h1>Anasayfa</h1>");
 })
 
-app.get("/users", [passwordControl,authControl] , (req,res)=>{
+app.get("/users", [passwordControl] , (req,res)=>{
 
-     if(req.query.terscevir){
-        res.send(users.reverse());
-    }else{
-        res.json(users);
-
-    }  
+     res.status(200).json(allUsers); 
 
 })
 
@@ -40,7 +33,7 @@ app.get("/users/:id", (req,res)=>{
 
     const id = req.params.id;
 
-    const foundedUser = users.find((user)=>user.id === parseInt(id));
+    const foundedUser = allUsers.find((user)=>user.id === parseInt(id));
 
 
     if(foundedUser){
@@ -52,20 +45,26 @@ app.get("/users/:id", (req,res)=>{
     
 })
 
-app.post("/users",[authControl], (req,res)=>{
+app.post("/users/password",[postIcinControl,authControl],(req,res)=>{
 
-    const newUser = {
-        id:users.length+1,
-        ad:req.body.ad,
-        yas:req.body.yas
-    }
-
-    users.push(newUser);
-    res.send(newUser);
+    res.status(200).json({
+        status:true,
+        message:"Islem basarili..."
+    })
 
 })
 
-app.post("/users/password",[postIcinControl] ,(req,res)=>{
+app.post("/users",[authControl], (req,res)=>{
+
+    const newUser = {
+        id:allUsers.length+1,
+        ad:req.body.ad,
+        yas:req.body.yas,
+        password:req.body.password
+    }
+
+    allUsers.push(newUser);
+    res.send(newUser);
 
 })
 
@@ -76,6 +75,6 @@ app.get("*", (req,res)=>{
 
 
 
-app.listen(3000,()=>{
-    console.log(3000 + " calisiyor...");
+app.listen(3001,()=>{
+    console.log(3001 + " calisiyor...");
 })

@@ -1,5 +1,7 @@
 const express = require("express");
 
+const PORT = process.env.PORT || 4000;
+
 const app = express();
 
 app.use(express.json()); // Post request icin bu yazilmak zorunda
@@ -64,4 +66,4 @@ app.get("*", (req,res)=>{
 
 
 
-app.listen(4000)
+app.listen(PORT)

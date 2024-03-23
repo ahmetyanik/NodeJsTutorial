@@ -31,7 +31,6 @@ function LoginEkrani({setSifreSonucu}) {
           onChange={(e) => {
             setIsim(e.target.value);
           }}
-          name="isim"
           value={isim}
           placeholder="isim"
           type="text"
@@ -41,7 +40,6 @@ function LoginEkrani({setSifreSonucu}) {
           onChange={(e) => {
             setSifre(e.target.value);
           }}
-          name="sifre"
           value={sifre}
           placeholder="sifre"
           type="text"

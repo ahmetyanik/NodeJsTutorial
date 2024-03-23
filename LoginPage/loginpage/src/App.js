@@ -9,8 +9,17 @@ function App() {
   const [isim, setAd] = useState();
   const [age, setAge] = useState();
   const [sifre, setSifre] = useState();
-
   const [sifreSonucu, setSifreSonucu] = useState(false);
+  
+  const [kisiAdi,setKisiAdi] = useState("Henüz kisi secilmedi!");
+
+  const handleClick = (e) =>{
+
+    setKisiAdi(e.target.value);
+
+  }
+
+
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -78,6 +87,7 @@ function App() {
             <button type="submit">Tik tik</button>
           </form>
 
+          
           <ul>
             {kisiler?.map((kisi, index) => {
               return (
@@ -91,6 +101,18 @@ function App() {
           </ul>
         </div>
       )}
+
+<div style={{background:"red",height:"10px"}}></div>
+<br/>
+<br/>
+<br/>
+
+<button onClick={handleClick} value="ahmet">Ahmet</button>
+<button onClick={handleClick} value="bahadir">Bahadir</button>
+<button onClick={handleClick} value="ersan">Ersan</button>
+
+<div>Kisi ismi:{kisiAdi}</div>
+
     </div>
   );
 }

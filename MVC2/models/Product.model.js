@@ -6,7 +6,7 @@ const databaseUri = `mongodb+srv://ahmetyank4242:${process.env.DB_PASSWORD}@clus
 
 mongoose.connect(databaseUri).then(res=>console.log("Database'e baglandi..")).catch(err=>console.log(err));
 
-const userSchema = new Schema({
+const productSchema = new Schema({
     id:{
         required:true,
         type:Number
@@ -15,13 +15,13 @@ const userSchema = new Schema({
         required:true,
         type:String
     },
-    surname:{
+    price:{
         required:true,
-        type:String
+        type:Number
     },
 })
 
 
-const User = model("user",userSchema);
+const Product = model("product",productSchema);
 
-module.exports = User;
+module.exports = Product;
